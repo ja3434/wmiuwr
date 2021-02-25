@@ -1,0 +1,55 @@
+#lang racket
+
+(define (run-concurrent . thunks)
+  (define threads (map thread thunks))
+  (for-each thread-wait threads))
+
+(define (random-sleep)
+  (sleep (/ (random) 100)))
+
+(define (with-random-sleep proc)
+  (lambda args
+    (random-sleep)
+    (apply proc args)))
+
+(define (make-serializer)
+  (define sem (make-semaphore 1))
+  (lambda (proc)
+    (lambda args
+      (semaphore-wait sem)
+      (define ret (apply proc args))
+      (semaphore-post sem)
+      ret)))
+
+(define (table)
+  (random-sleep)
+  (define forks (list (make-semaphore 1)
+                      (make-semaphore 1)
+                      (make-semaphore 1)
+                      (make-semaphore 1)
+                      (make-semaphore 1)))
+  (define (pick-fork i)
+    (random-sleep)
+    (semaphore-wait (list-ref forks i)))
+  (define (put-fork i)
+    (random-sleep)
+    (semaphore-post (list-ref forks i)))
+  (define (dispatch m)
+    (cond [(eq? m 'pick-fork) pick-fork]
+          [(eq? m 'put-fork) put-fork]
+          [else (error "Unknown request -- TABLE"
+                       m)]))
+  dispatch)
+
+(define dtable (table))
+
+(define (philosopher dining-table number)
+  (define my-turn (make-serializer))
+  (define (eat)
+    (display number)
+    (newline)
+    ((dining-table 'pick-fork) number)
+    ((dining-table 'put-fork) number)
+    ((dining-table 'pick-fork) (modulo (+ number 1) 5))
+    ((dining-table 'put-fork) (modulo (+ number 1) 5)))
+  (my-turn eat))

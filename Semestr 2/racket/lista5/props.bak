@@ -1,0 +1,71 @@
+#lang racket
+
+(provide var?
+         neg?
+         conj?
+         disj?
+         conj
+         disj
+         neg
+         conj-left
+         conj-right
+         disj-right
+         disj-left
+         neg-subf)
+; (require "solution.rkt")
+
+(define (var? t) (symbol? t))
+
+(define (neg? t)
+  (and (list? t)
+       (= 2 (length t))
+       (eq? 'neg (car t))))
+
+(define (conj? t)
+  (and (list? t)
+       (= 3 (length t))
+       (eq? 'conj (car t))))
+
+(define (disj? t)
+  (and (list? t)
+       (= 3 (length t))
+       (eq? 'disj (car t))))
+
+(define (lit? t)
+  (or (var? t)
+      (and (neg? t)
+           (var? (neg-subf t)))))
+
+(define (conj left right)
+  (list 'conj left right))
+
+(define (disj left right)
+  (list 'disj left right))
+
+(define (neg f)
+  (list 'neg f))
+
+(define (conj-left f)
+  (if (conj? f)
+      (cadr f)
+      (error "Złe dane ze znacznikiem -- CONJ-LEFT" f)))
+
+(define (conj-right f)
+  (if (conj? f)
+      (caddr f)
+      (error "Złe dane ze znacznikiem -- CONJ-RIGHT" f)))
+
+(define (disj-left f)
+  (if (disj? f)
+      (cadr f)
+      (error "Złe dane ze znacznikiem -- DISJ-LEFT" f)))
+
+(define (disj-right f)
+  (if (disj? f)
+      (caddr f)
+      (error "Złe dane ze znacznikiem -- DISJ-RIGHT" f)))
+
+(define (neg-subf f)
+  (if (neg? f)
+      (cadr f)
+      (error "Złe dane ze znacznikiem -- NEG-FORM" f)))

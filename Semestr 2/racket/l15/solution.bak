@@ -1,0 +1,7 @@
+#lang racket
+
+
+
+(define (run-concurrent . thunks)
+  (define threads (map thread thunks))
+  (for-each thread-wait threads))

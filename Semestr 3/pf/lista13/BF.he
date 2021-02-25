@@ -1,0 +1,57 @@
+effect Reader X =
+  { ask : Unit => Option X
+  }
+
+let hReadString str c =
+  handle c () with
+  | ask () => fn pos =>
+    if pos >= String.length str then
+      resume None pos
+    else
+      resume (Some (String.get pos str)) (pos+1)
+  | return  x => fn _ => x
+  end 0
+
+data rec BF =
+| MoveR
+| MoveL
+| Inc
+| Dec
+| Output
+| Input
+| While of List BF
+
+let parse str =
+  let rec parse () =
+    match ask () with
+    | None   => []
+    | Some c =>
+      if   Char.equal c '>' then MoveR  :: parse ()
+      elif Char.equal c '<' then MoveL  :: parse ()
+      elif Char.equal c '+' then Inc    :: parse ()
+      elif Char.equal c '-' then Dec    :: parse ()
+      elif Char.equal c '.' then Output :: parse ()
+      elif Char.equal c ',' then Input  :: parse ()
+      elif Char.equal c '[' then
+        begin let body = parse () in
+          While body :: parse ()
+        end
+      elif Char.equal c ']' then []
+      else parse ()
+    end
+  in
+  handle parse () with hReadString str
+
+(** Odczytanie pojedynczego znaku ze standardowego wejścia *)
+let tryReadChar () =
+  let str = input stdin 1 in
+  if String.length str = 1 then
+    Some (String.get 0 str)
+  else None
+
+(** Wypisanie pojedynczego znaku na standardowe wyjście *)
+let printChar c =
+  outputString stdout (String.repeat 1 c)
+
+(* Do konwersji pomiędzy typami Char i Int możesz użyć funkcji
+* Char.chr oraz Char.code *)

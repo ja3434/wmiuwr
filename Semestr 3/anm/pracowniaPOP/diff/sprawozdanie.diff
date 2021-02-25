@@ -1,0 +1,213 @@
+1c1,3
+< \documentclass[12pt]{extarticle}
+---
+> \documentclass{mwart}
+> \usepackage{polski}
+> 
+4,5d5
+< \usepackage[utf8]{inputenc}
+< \usepackage[T1]{fontenc}
+9,10c9
+< \usepackage[utf8]{inputenc}
+< \usepackage[polish]{babel}
+---
+> 
+12,13c11,12
+< \let\babellll\lll
+< \let\lll\relax
+---
+> % \let\babellll\lll
+> % \let\lll\relax
+78d76
+< \newcommand{\set}[2]{\left\{{#1}  \mid {#2} \right\}  }
+81d78
+< \newcommand{\join}{\mathbin{\vee}}
+159,160c156,157
+<   x_r = x_0\cos\theta - y_0\sin\theta \\
+<   y_r = x_0\sin\theta + y_0\cos\theta 
+---
+>   x_r = x_0\cos\theta - y_0\sin\theta, \\
+>   y_r = x_0\sin\theta + y_0\cos\theta.
+165,166c162,163
+<   x_r = \cos\theta \\
+<   y_r = \sin\theta
+---
+>   x_r = \cos\theta, \\
+>   y_r = \sin\theta.
+189c186
+<   \end{bmatrix}
+---
+>   \end{bmatrix}.
+196c193
+<           \theta = \sum_{i=0}^n \sigma_i\theta_i, \; \sigma_i \in \{-1, 1\}
+---
+>           \theta = \sum_{i=0}^n \sigma_i\theta_i, \; \sigma_i \in \{-1, 1\}.
+199c196,198
+<         $45^{\circ}, 26.565^{\circ}, -14.03^{\circ}$ (dobór tych kątów jest nieprzypadkowy, o czym się zaraz przekonamy). Jeśli $\theta$ nie należy do zadanego przez nas przedziału, to możemy ten kąt zmienić korzystając ze wzorów redukcyjnych (o tym więcej w \textsection3).
+---
+>         $45^{\circ}, 26.565^{\circ}, -14.03^{\circ}$ (dobór tych kątów jest nieprzypadkowy, o czym się zaraz przekonamy). 
+>         Jeśli $\theta$ nie należy do zadanego przez nas przedziału, to możemy ten kąt zmienić korzystając ze wzorów redukcyjnych 
+>         (o tym więcej w \textsection 3).
+228c227
+<   \end{bmatrix}
+---
+>   \end{bmatrix}.
+242c241
+<   \end{bmatrix}
+---
+>   \end{bmatrix}.
+256c255
+<   \end{bmatrix}
+---
+>   \end{bmatrix}.
+278c277
+<   \end{bmatrix}
+---
+>   \end{bmatrix}.
+283c282
+<   P = \cos 45^{\circ}\cdot\cos 26.565^{\circ}\cdot\cos 14.03^{\circ}\cdot\ldots \approx 0.6072
+---
+>   P = \cos 45^{\circ}\cdot\cos 26.565^{\circ}\cdot\cos 14.03^{\circ}\cdot\ldots \approx 0.6072.
+287,288c286,287
+<   x_{i + 1} & = x_{i} - \sigma_i 2^{-i}y_i \\
+<   y_{i + 1} & = y_i + \sigma_i 2^{-i}y_i
+---
+>   x_{i + 1} & = x_{i} - \sigma_i 2^{-i}y_i, \\
+>   y_{i + 1} & = y_i + \sigma_i 2^{-i}y_i.
+293c292
+<   \theta_{error} = \z_n = \theta - \sum_{i=0}^n\sigma_i \theta_i
+---
+>   \theta_{error} = z_n = \theta - \sum_{i=0}^n\sigma_i \theta_i.
+298,300c297,299
+<   x_{i + 1} & = x_{i} - \sigma_i 2^{-i}y_i    \\
+<   y_{i + 1} & = y_i + \sigma_i 2^{-i}y_i      \\
+<   z_{i + 1} & = z_i - \sigma_i \arctan 2^{-1}
+---
+>   x_{i + 1} & = x_{i} - \sigma_i 2^{-i}y_i,    \\
+>   y_{i + 1} & = y_i + \sigma_i 2^{-i}y_i,      \\
+>   z_{i + 1} & = z_i - \sigma_i \arctan 2^{-1}.
+307c306
+<   \frac{1}{\cos(\arctan 2^{-i})} = \sqrt{1 + \frac{1}{2^{2i}}}
+---
+>   \frac{1}{\cos(\arctan 2^{-i})} = \sqrt{1 + \frac{1}{2^{2i}}}.
+313c312
+<   \abs{\theta} \leq \sum_{i=0}^n\theta_i \approx 99.88^{\circ}
+---
+>   \abs{\theta} \leq \sum_{i=0}^n\theta_i \approx 99.88^{\circ}.
+340c339
+<   \sin z = \sin (x + yi) = \sin x\cosh (y) + i\cos x\sinh(y) 
+---
+>   \sin z = \sin (x + yi) = \sin x\cosh (y) + i\cos x\sinh(y).
+347,350c346,349
+<   \sin x  & = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots \\
+<   \sinh x & = x + \frac{x^3}{3!} + \frac{x^5}{5!} + \frac{x^7}{7!} + \ldots \\
+<   \cos x  & = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \ldots \\
+<   \cosh x & = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \ldots \\
+---
+>   \sin x  & = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \ldots, \\
+>   \sinh x & = x + \frac{x^3}{3!} + \frac{x^5}{5!} + \frac{x^7}{7!} + \ldots, \\
+>   \cos x  & = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \ldots, \\
+>   \cosh x & = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \ldots. \\
+378,381c377,380
+<   \sin x  & = \texttt{TaylorSeries}(x, 1, -1, M) \\
+<   \sinh x & = \texttt{TaylorSeries}(x, 1, 1, M)  \\
+<   \cos x  & = \texttt{TaylorSeries}(x, 0, -1, M) \\
+<   \cosh x & = \texttt{TaylorSeries}(x, 0, 1, M)
+---
+>   \sin x  & = \texttt{TaylorSeries}(x, 1, -1, M), \\
+>   \sinh x & = \texttt{TaylorSeries}(x, 1, 1, M),  \\
+>   \cos x  & = \texttt{TaylorSeries}(x, 0, -1, M), \\
+>   \cosh x & = \texttt{TaylorSeries}(x, 0, 1, M).
+384,385c383,389
+< Zauważmy, że wzór Taylora nadaje się do przybliżania funkcji trygonometrycznych jedynie dla argumentów bliskich $0$. Na szczęście możemy sobie z tym poradzić korzystając ze znanych tożsamości trygonometrycznych oraz okresowości funkcji $\sin$ i $\cos$. Naszym celem przed obliczniem funkcji \texttt{TaylorSeries} będzie sprowadzenie argumentu do przedziału $[0, \pi/4]$, w którym wzór Taylora bardzo dobrze przybliża wartości funkcji trygonometrycznych. Oto tabela która przedstawia jak radzimy sobie z argumentami spoza tego przedziału:
+< \begin{center}
+---
+> Zauważmy, że wzór Taylora nadaje się do przybliżania funkcji trygonometrycznych jedynie dla argumentów bliskich $0$. 
+> Na szczęście możemy sobie z tym poradzić korzystając ze znanych tożsamości trygonometrycznych oraz okresowości funkcji $\sin$ i $\cos$. 
+> Naszym celem przed obliczniem funkcji \texttt{TaylorSeries} będzie sprowadzenie argumentu do przedziału $[0, \pi/4]$,
+> w którym wzór Taylora bardzo dobrze przybliża wartości funkcji trygonometrycznych. 
+> Oto tabela która przedstawia jak radzimy sobie z argumentami spoza tego przedziału:
+> \begin{table}[H]
+>   \centering
+399,402c403,405
+<   \\
+< \vspace{0.5cm}
+< Tabela 2: błędy przy obliczaniu funkcji $\sin(x)$.
+< \end{center}
+---
+>   \caption{Wzory redukcyjne.}
+>   \label{tab:reduk}
+> \end{table}
+406,407c409,410
+<   \sinh x & = 2\sinh(x/2)\cosh(x/2)       \\
+<   \cosh x & = \cosh^2(x/2) + \sinh^2(x/2)
+---
+>   \sinh x & = 2\sinh(x/2)\cosh(x/2),       \\
+>   \cosh x & = \cosh^2(x/2) + \sinh^2(x/2).
+418c421
+< Dla każdej metody przeprowadziliśmy trzy rodzaje testów, w każdym z nich losowaliśmy $10^8$ liczb z różnych przedziałów. Ze względu na podobieństwo funkcji $\sin$ i $\cos$ oraz z faktu, że często wzory redukcyjne powodują faktycznie obliczanie innej funkcji trygonometrycznej, testy przeprowadziliśmy wyłącznie dla funkcji $\sin$. Przedziały i wyniki testów przedstawione są w poniższej tabeli:
+---
+> Dla każdej metody przeprowadziliśmy trzy rodzaje testów, w każdym z nich losowaliśmy $10^8$ liczb z różnych przedziałów. Ze względu na podobieństwo funkcji $\sin$ i $\cos$ oraz z faktu, że często wzory redukcyjne powodują faktycznie obliczanie innej funkcji trygonometrycznej, testy przeprowadziliśmy wyłącznie dla funkcji $\sin$. Przedziały i wyniki testów przedstawione są w poniższej tabeli oraz na wykresach:
+420c423,424
+< \begin{center}
+---
+> \begin{table}[H]
+>   \centering
+452,456c456,481
+< \end{tabular}}}
+< \\
+< \vspace{0.5cm}
+< Tabela 2: błędy przy obliczaniu funkcji $\sin(x)$.
+< \end{center}
+---
+>         \end{tabular}
+>       }}
+>   \caption{Błędy przy obliczaniu funkcji $\sin(x)$.}
+>   \label{tab:2}
+> \end{table}
+> \clearpage
+> % \begin{center}
+> 
+> Poniższe wykresy obrazują wielkości błędów względnych obu algorytmów\newline przy liczeniu sinusa w przedziale $[0, 2\pi]$:
+> \begin{figure}[H]
+> \centering
+>     \includegraphics[scale = 0.6]{cordic error.png}
+>     \caption{Błąd względny algorytmu CORDIC dla wartości funkcji $\sin$}
+>     \label{rys:1}
+> \end{figure}
+> % \end{center}
+> 
+> % \begin{center}
+> \begin{figure}[H]
+> \centering
+>     \includegraphics[scale = 0.9]{taylor error.png}
+> \caption{Błąd względny metody Taylora dla wartości funkcji $\sin$}
+> \label{rys:2}
+> \end{figure}
+> % \end{center}
+> 
+459c484,491
+< Jak widać dla wszystkich testów, zaproponowane przez nas metody sprawdzają się bardzo dobrze dla małych argumentów. Algorytm CORDIC wypada dużo gorzej od metody korzystającej ze wzoru Taylora, lecz nie jest to dla nas nic zaskakującego -- metoda ta tworzy kompromis między wydajnością, a dokładnością obliczeń. Dla obu metod widać, że problemem jest zmiana argumentu na mały, gdyż to generuje największy błąd. W obu przypadkach najgorszy błąd względny generowały argumenty, które są duże i zbliżone do wielokrotności $\pi$, co wynika z konieczności odejmowania, z którego korzysta działanie $\mod$ oraz wzory redukcyjne, co prowadzi do utraty cyfr znaczących.
+---
+> Jak widać w tabeli \ref{tab:2}, dla wszystkich testów zaproponowane przez nas metody sprawdzają 
+> się bardzo dobrze dla małych argumentów. Algorytm CORDIC wypada dużo gorzej od metody korzystającej 
+> ze wzoru Taylora, lecz nie jest to dla nas nic zaskakującego -- metoda ta tworzy kompromis 
+> między wydajnością, a dokładnością obliczeń. Dla obu metod widać, że problemem jest zmiana 
+> argumentu na mały, gdyż to generuje duży błąd obliczeń. W obu przypadkach największy błąd względny
+> generowały argumenty zbliżone do wielokrotności $\pi$, jak widać na rysunkach \ref{rys:1} i \ref{rys:2}. Wynika to z konieczności odejmowania, 
+> z którego korzysta wbudowana w \texttt{Julia} funkcja \texttt{mod2pi} oraz wzory redukcyjne.
+> Prowadzi do utraty cyfr znaczących, tym samym obniżając dokładność obliczeń.
+463a496,508
+> 
+> \begin{thebibliography}{9}
+>   \bibitem{CORDIC tutorial}
+>   Steve Arar.
+>   \textit{An Introduction to the CORDIC Algorithm}. 
+>   \\\texttt{\url{https://www.allaboutcircuits.com/technical-articles/an-introduction-to-the-cordic-algorithm/}}
+>   
+>   \bibitem{CORDIC ints}
+>   Andrea Vitali.
+>   \textit{Coordinate rotation digital computer algorithm (CORDIC)
+>     to compute trigonometric and hyperbolic functions}.
+>   \\\texttt{\url{https://bit.ly/3lVQxbJ}}
+> \end{thebibliography}

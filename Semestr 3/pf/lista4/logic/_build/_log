@@ -1,0 +1,12 @@
+### Starting build.
+# Target: logic.mli.depends, tags: { extension:mli, file:logic.mli, ocaml, ocamldep, quiet, traverse }
+/home/fmalinka/.opam/4.11.1/bin/ocamldep.opt -modules logic.mli > logic.mli.depends # cached
+# Target: logic.cmi, tags: { byte, compile, extension:mli, file:logic.mli, interf, ocaml, quiet, traverse }
+/home/fmalinka/.opam/4.11.1/bin/ocamlc.opt -c -o logic.cmi logic.mli # cached
+# Target: logic.ml.depends, tags: { extension:ml, file:logic.ml, ocaml, ocamldep, quiet, traverse }
+/home/fmalinka/.opam/4.11.1/bin/ocamldep.opt -modules logic.ml > logic.ml.depends
+# Target: logic.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:logic.cmo, file:logic.ml, implem, ocaml, quiet, traverse }
+/home/fmalinka/.opam/4.11.1/bin/ocamlc.opt -c -o logic.cmo logic.ml
+# Target: logic.cma, tags: { byte, extension:cma, file:logic.cma, library, link, ocaml, quiet, traverse }
+/home/fmalinka/.opam/4.11.1/bin/ocamlc.opt -a logic.cmo -o logic.cma
+# Compilation successful.

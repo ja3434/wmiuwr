@@ -1,0 +1,18 @@
+1 sem
+
+MDM - 5 5
+AO - 5
+AM 1 - 5 5
+LDI - 5 5
+MIA - 5
+
+8 * 5
+
+
+2 sem
+
+Topologia - 5 3
+Analiza - 4 4
+MP - 5 5
+PPS - 5
+Algebra - 5 5

@@ -1,0 +1,18 @@
+#lang racket
+
+(require racket/contract)
+
+(provide (contract-out [square square/c]))
+(provide square/c)
+
+(define square/c (-> number? (not/c negative?)))
+
+(define (square x) (* x x))
+
+
+(define with-labels/c (parametric->/c [a b] (-> (-> a b))
+
+(define (with-labels f xs)
+  (if (null? xs)
+      null
+      (cons (list (f (car xs)) (car xs)) (with-labels f (cdr xs)))))

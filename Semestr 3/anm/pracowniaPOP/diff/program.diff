@@ -1,0 +1,148 @@
+2a3
+> # stałe dla CORDIC'A
+11a13
+> # stałe dla obliczania szeregiem Taylora
+31c33,34
+< # generyczna funkcja stosująca wzory redukcyjne, licząca sinusa 
+---
+> # generyczna funkcja stosująca wzory redukcyjne, licząca sin(x)
+> # za pomocą podanych funkcji sin_fun, cos_fun 
+32a36
+>     # sin(-x) = sin(x)
+36a41
+>     # sin(π + x) = -sin(x)
+39a45
+>     # sin(π/2 + x) = cos(x)
+42a49
+>     # sin(π/2 - x) = cos(x)
+49c56,57
+< # generyczna funkcja stosująca wzory redukcyjne, licząca cosinusa
+---
+> # generyczna funkcja stosująca wzory redukcyjne, licząca cos(x)
+> # za pomocą podanych funkcji sin_fun, cos_fun 
+50a59
+>     # cos(-x) = cos(x)
+54a64
+>     # cos(π + x) = -cos(x)
+57a68
+>     # cos(π/2 + x) = -sin(x)
+60a72
+>     # cos(π/2 - x) = sin(x)
+67c79
+< # sin dla liczb rzeczywistych [taylor]
+---
+> # sin dla liczb rzeczywistych [Taylor]
+72c84
+< # cos dla liczb rzeczywistych [taylor]
+---
+> # cos dla liczb rzeczywistych [Taylor]
+77c89
+< # sinh [taylor]
+---
+> # sinh [Taylor]
+78a91
+>     # sinh(1000) jest za duży by reprezentować go we Float64
+87a101,102
+>     # dla dużych liczb korzystamy ze wzoru:
+>     # sinh(2r) = 2 * cosh(r) * sinh(r)
+94c109
+< # cosh [taylor]
+---
+> # cosh [Taylor]
+95a111
+>     # cosh(1000) jest za duży by reprezentować go we Float64
+101a118,119
+>     # dla dużych liczb korzystamy ze wzoru:
+>     # cosh(2r) = cosh(r)^2 + sinh(r)^2
+110c128
+< # sin dla liczb zespolonych [taylor]
+---
+> # sin dla liczb zespolonych [Taylor]
+111a130
+>     # sin(a + bi) = sin(a) * cosh(b) + i(cos(a) * sinh(b))
+116c135
+< # cos dla liczb zespolonych [taylor]
+---
+> # cos dla liczb zespolonych [Taylor]
+117a137
+>     # cos(a + bi) = cos(a) * cosh(b) - i(sin(a) * sinh(b))
+122c142
+< # funkcja dla użytkownika [taylor]
+---
+> # funkcja sin dla użytkownika [Taylor]
+127c147
+< # funkcja dla użytkownika [taylor]
+---
+> # funkcja cos dla użytkownika [Taylor]
+132c152
+< # funkcja dla użytkownika [taylor]
+---
+> # funkcja sinh dla użytkownika [Taylor]
+137c157
+< # funkcja dla użytkownika [taylor]
+---
+> # funkcja cosh dla użytkownika [Taylor]
+142c162
+< # preprocesing [cordic]
+---
+> # preprocesing [CORDIC]
+158c178
+< # preprocesing [cordic]
+---
+> # preprocesing [CORDIC]
+168c188
+< # funkcja licząca zarówno sin oraz cos [cordic]
+---
+> # funkcja licząca zarówno cosx oraz sinx algorytmem CORDIC
+175a196
+>     # Proces iteracyjny algorytmu CORDIC
+195c216
+< # wyciąganie sin z approx_trig [cordic] 
+---
+> # wyciąganie sin z approx_trig [CORDIC] 
+201c222
+< # wyciąganie cos z approx_trig [cordic]
+---
+> # wyciąganie cos z approx_trig [CORDIC]
+206c227
+< # funkcja dla użytkownika [cordic]
+---
+> # funkcja sin dla użytkownika [CORDIC]
+211c232
+< # funkcja dla użytkownika [cordic]
+---
+> # funkcja cos dla użytkownika [CORDIC]
+216c237,239
+< # uruchamianie preprocesingu [cordic]
+---
+> # uruchamianie preprocesingu [CORDIC]
+> # funkcja wypisuje kod w języku Julia na ekran, który potem po prostu wkleiliśmy do pliku źródłowego
+> # oblicza stałe potrzebne do obliczania funkcji trygonometrycznych metodą CORDIC
+223c246
+< # sinh bez stosowania wzorów redukcyjnych [taylor]
+---
+> # sinh bez stosowania wzorów redukcyjnych [Taylor]
+228c251
+< # cosh bez stosowania wzorów redukcyjnych [taylor]
+---
+> # cosh bez stosowania wzorów redukcyjnych [Taylor]
+233c256
+< # sin bez stosowania wzorów redukcyjnych [taylor]
+---
+> # sin bez stosowania wzorów redukcyjnych [Taylor]
+234a258,260
+>     # sin(a + bi) = sin(a) * cosh(b) + i(cos(a) * sinh(b))
+>     # wykonujemy odpowiednio (10a + 10), (10b + 10) iteracji - szereg Tylora
+>     # powinien dobrze przybliżać funkcje trygonometryczne dla takiej liczby wyrazów
+236c262
+<             real_cos(x, 10*round(x)+10) * sinh_no_reduction(y, 10*round(x)+10))
+---
+>             real_cos(x, 10*round(x)+10) * sinh_no_reduction(y, 10*round(y)+10))
+239c265
+< # zmiana liczby iteracji [taylor]
+---
+> # zmiana liczby iteracji [Taylor]
+244c270
+< # zmiana liczby iteracji [cordic]
+---
+> # zmiana liczby iteracji [CORDIC]

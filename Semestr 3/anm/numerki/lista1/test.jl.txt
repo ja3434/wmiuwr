@@ -1,0 +1,16 @@
+function string_to_float64(st)
+  s = st[1]
+  c = st[2:12]
+  m = st[13:end]
+
+  if s == '0'
+      s = 1.0
+  else
+      s = -1.0
+  end
+  
+  c = parse(Int, string("0b", c))
+  c = 2.0 ^ (c - 1023)
+  m = Float64(parse(Int64, string("0b", m))) / Float64(2^52) + 1.0
+  return s * c * m
+end

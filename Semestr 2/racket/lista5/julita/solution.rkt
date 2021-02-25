@@ -1,0 +1,164 @@
+#lang racket
+
+;;Praca grupowa:
+;;Dawid Holewa
+;;Julita Osman
+;;Aleksandra Stępniewska
+
+(require "props.rkt")
+(provide falsifiable-cnf?)
+
+;Ponieważ formuła w cnf to konjunkcja klauzul
+;a klauzula to alternatywa literałów
+;to formuła w tej postaci jest tautologią
+;wtedy i tylko wtedy gdy
+;wszystkie klauzule w niej występujace sa zawsze prawdziwe (też są tautologiami)
+;w przeciwnym razie, formulę taką da się zanegować;
+;zatem nasz pomysł polega na tym, aby
+;1)sprawdzic czy formula jest tautologia
+;2)jesli tak to zwracamy fałsz
+;3)wpp. pierwsza z klauzul, która nie jest tautologia
+;(zatem jest mozliwa do zanegowania i jednocześnie neguje cała formułe w cnf)
+;"przesuwamy" na początek listy reprezentującej cnf
+
+;dodatkowo to czy klauzula jest tautologią nie musimy sprawdzać wykonując wartościowanie
+;możemy skorzystać z własności alternatywy
+;klauzula bedzię zawsze pawdziwa tylko jeśli conajmniej jedna ze zmiennych występuje jednoczesnie ze swoją negacją
+
+;Falsifiable, która sprawdza każde wartościowania
+;sprawdza 2^(ilosc zmiennych w całym wyrażeniu) wartosciowań,
+;podczas gdy
+;falsifiable, która opiera się na strukturze cnf 
+;przechodzi po cnf, aż do napotkania pierwszej
+;mozliwej do zanegowania klauzuli
+;zatem w najroszym przypadku przejdziemy po całym cnf
+;ale zawsze wartosciowania negujacego formule szukamy tylko dla jedenej klauzuli
+;zauważmy,ze jeśli formuła jest tautologią to oszczędzamy bardzo dużo czasu nie rozpartując wszystkich wartosciowań, tylko wypisujac odrazu falsz
+
+;Ta druga jest więc efektywniejsza
+
+(define (lit? f);; a lub ~a
+  (or (var? f) ;;a
+      (and (neg? f);;~a 
+           (var? (neg-subf f)))))
+
+(define (lit-pos v)
+  v)
+
+(define (lit-neg v)
+  (neg v))
+
+(define (lit-var l) ;;a-->a      ~a-->a
+  (if (var? l)
+      l
+      (neg-subf l)))
+
+(define (lit-pos? l)
+  (var? l))
+
+(define (to-nnf f)
+  (cond
+    [(var? f)  (lit-pos f)]
+    [(neg? f)  (to-nnf-neg (neg-subf f))]
+    [(conj? f) (conj (to-nnf (conj-left f))
+                     (to-nnf (conj-right f)))]
+    [(disj? f) (disj (to-nnf (disj-left f))
+                     (to-nnf (disj-right f)))]))
+
+(define (to-nnf-neg f)
+  (cond
+    [(var? f)  (lit-neg f)]
+    [(neg? f)  (to-nnf (neg-subf f))]
+    [(conj? f) (disj (to-nnf-neg (conj-left f))
+                     (to-nnf-neg (conj-right f)))]
+    [(disj? f) (conj (to-nnf-neg (disj-left f))
+                     (to-nnf-neg (disj-right f)))]))
+
+(define (mk-cnf xss)
+  (cons 'cnf xss))
+
+(define (clause? f)
+  (and (list? f)
+       (andmap lit? f)))
+
+(define (cnf? f)
+  (and (pair? f)
+       (eq? 'cnf (car f))
+       (list? (cdr f))
+       (andmap clause? (cdr f))))
+
+(define (to-cnf f)
+  (define (join xss yss)
+    (apply append (map (lambda (xs) (map (lambda (ys) (append xs ys)) yss)) xss)))
+
+  (define (go f)
+    (cond
+      [(lit? f)  (list (list f))]
+      [(conj? f) (append (go (conj-left f))
+                         (go (conj-right f)))]
+      [(disj? f) (join (go (disj-left f))
+                       (go (disj-right f)))]))
+  (mk-cnf (go f)))
+
+
+(define (contain-both-literals?  claus)
+  (define (aux to-check)
+    (cond [(empty? to-check) #f]
+          [(neg? (car to-check))
+           (if (memq (neg-subf (car to-check)) claus)
+               #t
+               (aux (cdr to-check)))]
+          [else (aux (cdr to-check))]))
+  (aux claus))
+
+
+;; sprawdza czy ktorakolwiek z klauzul z listy reprezentujacej cnf 
+;; zawiera chociaz jedną parę zmiennej i jej negacji
+;; zwraca liste pusta jesli cnf jest tautologia
+;; zwraca liste z pierwsza klauzule nie bedaca tautologia "przesunieta" na poczatek (possible-to-neg)
+(define (has-both big-set)
+  (define (possible-to-neg big-set x) ;;przesuwa x-ty element listy big-set na poczatek
+    (define x-ty (list-ref big-set x))
+    (append (list x-ty) (remove x-ty big-set)))
+  (define (aux iter big-set)
+  (if (= iter (length big-set))
+      '()
+      (if (contain-both-literals? (list-ref big-set iter)) ;;sprawdzamy czy iter klauzula cnf ma wystapienie a i ~a jednoczesnie
+          (aux (+ iter 1) big-set)
+          (possible-to-neg big-set iter))))
+  (aux 0 (cdr big-set))) ;;(cdr big-set) bo to cnf czyli pierwszy element listy to edykieta 'cnf
+          
+
+(define (falsifiable-cnf? t)
+  (define tt (to-cnf (to-nnf t)))
+  (define f (has-both tt))
+  (if (empty? f)
+      #f
+      (find-valuation f)))
+            
+
+(define (valuate f sigma)
+  (define (insigma-proc lista result)
+    (cond [(null? lista) result]
+          [(insigma-proc (cdr lista) (append result (list (lit-var(caar lista)))))]))
+  ;; insigma ---> lista zmiennych z wartosciowania pierwszej klauzuli:   
+  (define insigma (insigma-proc sigma '()))
+  (define (aux insigma otherclause sigma)
+    (cond [(null? otherclause) sigma]
+          [(if (memq (lit-var (car otherclause)) insigma)
+               (aux insigma (cdr otherclause) sigma)
+               (if(neg? (car otherclause))
+                  (aux (append insigma (list(car otherclause)))
+                    (cdr otherclause)
+                    (append sigma (list(list (lit-var(car otherclause)) true))))
+                  (aux (append insigma (list(car otherclause)))
+                    (cdr otherclause)
+                    (append sigma (list(list (car otherclause) false))))))]))
+  (if (empty? f)
+      sigma
+      (valuate (cdr f)
+                    (aux insigma (car f) sigma))))
+
+(define (find-valuation f)
+  (valuate f '())) 
+
