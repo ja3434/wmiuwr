@@ -21,3 +21,10 @@ Materiały z przedmiotów realizowanych przeze mnie podczas moich studiów na Un
 * Programowanie funkcyjne, II
 * Miara i całka (funkcje rzeczywiste), IM
 * Analiza numeryczna M, II
+
+### Semestr letni 2020/2021
+* Architektury systemów komputerowych, II
+* Algorytmy i struktury danych, II
+* Sieci komputerowe, II
+* Równania różniczkowe 1R, IM
+* Rachunek prawdopodobieństwa 1R, IM
