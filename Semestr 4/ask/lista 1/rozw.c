@@ -211,4 +211,7 @@ int main() {
     printf("%hhd ", t2[i]);
   printf("\n");
 
+  i = 3;
+  t1[i++] = i;
+  printf("%hhd\n", t1[i-1]);
 }
