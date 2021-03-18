@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <netinet/ip_icmp.h>
 #include <assert.h>
+#include <time.h>
 
 #define MAX_TTL 30
 #define MESSAGES_PER_TTL 3
@@ -84,12 +85,26 @@ void send_icmp_packet(int sockfd, struct sockaddr_in *destination, int ttl) {
     fprintf(stdout, "Bytes sent: %ld\n", bytes_sent);
 }
 
+/* Return ip address of the sender of recceived package */
+in_addr_t recv_dontwait(int sockfd) {
+    struct sockaddr_in       sender;
+    socklen_t sender_len =   sizeof(sender);
+    uint8_t                  buffer[IP_MAXPACKET];
+
+    ssize_t packet_len = recvfrom(sockfd, buffer, IP_MAXPACKET, MSG_DONTWAIT,
+        (struct sockaddr*)&sender, &sender_len);
+    
+    if (packet_len == -1) {
+        fprintf(stderr, "Error while recieving a packet: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    return sender.sin_addr.s_addr;
+}
+
 int traceroute(struct sockaddr_in *destination) {
     int sockfd = create_raw_icmp_socket();
 
-    struct sockaddr_in  sender;
-    socklen_t           sender_len = sizeof(sender);
-    uint8_t             buffer[IP_MAXPACKET];
     for (int ttl = 1; ttl <= MAX_TTL; ++ttl) {
         send_icmp_packet(sockfd, destination, ttl);
     }
