@@ -9,3 +9,7 @@
 
 Semestr 4/sieci/vol/
 *.vscode*
+
+*.zip
+*.in
+*.out
