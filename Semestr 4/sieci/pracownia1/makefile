@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-std=c17 -D_GNU_SOURCE -O2 -Wall -Wextra
+CFLAGS=-std=gnu17 -O2 -Wall -Wextra
 TARGET=traceroute
 
 all: $(TARGET)
