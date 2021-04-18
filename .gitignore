@@ -13,3 +13,6 @@ Semestr 4/sieci/vol/
 *.zip
 *.in
 *.out
+*.o
+*hpscan*
+*.gdb*
