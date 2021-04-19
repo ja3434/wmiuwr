@@ -16,18 +16,21 @@ void _insert(node_t **head, void *data, size_t data_size) {
   *head = new_node;
 }
 
+void _free_node(node_t *node) {
+  free(node->data);
+  free(node);
+}
+
 void _erase(node_t **head) {
   node_t *next_node = _next(*head);
-  free((*head)->data);
-  free(*head);
+  _free_node(*head);
   *head = next_node;
 }
 
 void _free_list(node_t *head) {
   if (head == NULL) return;
   _free_list(head->next);
-  free(head->data);
-  free(head);
+  _free_node(head);
 }
 
 list_t create_list() {
@@ -45,11 +48,25 @@ void erase(list_t *list) {
   _erase(&list->head);
 }
 
+void erase_it(list_t *list) {
+  if(list->it == NULL) return;
+  if(list->prev_it == NULL) {
+    erase(list);
+    reset(list);
+    return;
+  }
+  list->prev_it->next = _next(list->it);
+  _free_node(list->it);
+  list->it = list->prev_it->next;
+}
+
 void iterate(list_t *list) {
+  list->prev_it = list->it;
   list->it = _next(list->it);
 }
 
 void reset(list_t *list) {
+  list->prev_it = NULL;
   list->it = list->head;
 }
 

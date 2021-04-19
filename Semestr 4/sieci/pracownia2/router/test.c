@@ -27,11 +27,18 @@ int main() {
       int val = 0;
       scanf("%d", &val);
       insert(&list, &val, sizeof(int));
+      reset(&list);
     }
     if (t == 1) {
-      erase(&list);
+      iterate(&list);
+      if (list.it != NULL)
+        printf("it: %d\n", *(int *)list.it->data);
+      else printf("End of list.\n");
     }
     if (t == 2) {
+      erase_it(&list);
+    }
+    if (t == 3) {
       print_list(list);
     }
   }
