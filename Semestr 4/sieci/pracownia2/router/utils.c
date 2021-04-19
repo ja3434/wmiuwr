@@ -21,10 +21,12 @@ void bind_to_port(int sockfd, uint16_t port) {
   server_address.sin_family       = AF_INET;
   server_address.sin_port         = htons(port);
   server_address.sin_addr.s_addr  = htonl(INADDR_ANY);
+  
   if (bind(sockfd, (struct sockaddr*)&server_address, sizeof(server_address)) < 0) {
     fprintf(stderr, "Bind error: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
   }
+  
   int broadcastPermission = 1;
   setsockopt (sockfd, SOL_SOCKET, SO_BROADCAST, (void *)&broadcastPermission, sizeof(broadcastPermission));
 }
@@ -38,16 +40,17 @@ int poll_socket_modify_timeout(int sockfd, int *timeout) {
     fprintf(stderr, "poll_modify_timeout: timeout is negative.\n");
     exit(EXIT_FAILURE);
   }
-  
+
   struct pollfd fds;
+  struct timespec start;
+  struct timespec finish;
+  
   fds.fd = sockfd;
   fds.events = POLLIN;
   fds.revents = 0;
-
-  struct timespec start;
   clock_gettime(CLOCK_REALTIME, &start);
-  int result = poll(&fds, 1, *timeout);
   
+  int result = poll(&fds, 1, *timeout);
   if (result == -1) {
     fprintf(stderr, "poll error: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
@@ -56,15 +59,14 @@ int poll_socket_modify_timeout(int sockfd, int *timeout) {
     *timeout = 0;
     return 0;
   }
-  struct timespec finish;
+
   clock_gettime(CLOCK_REALTIME, &finish);
   *timeout -= get_time_interval(start, finish);
   printf("Timeout: %dms, time waiting: %ldms.\n", *timeout, get_time_interval(start, finish));
   return result;
 }   
 
-/* For debug purposes only */
-void recv_and_print(int sockfd, int networks_number, struct router_addr *networks) {
+void recv_and_print(int sockfd, int networks_number, struct network_addr *networks) {
   struct sockaddr_in  sender;
   socklen_t           sender_len = sizeof(sender);
   uint8_t             buffer[IP_MAXPACKET + 1];
@@ -87,4 +89,14 @@ void recv_and_print(int sockfd, int networks_number, struct router_addr *network
 
   buffer[datagram_len] = 0;
   printf("%ld-byte message: +%s+\n", datagram_len, buffer);
+}
+
+size_t send_message(int sockfd, char *buffer, int buffer_len, struct in_addr network) {
+  struct sockaddr_in network_address;
+  bzero (&network_address, sizeof(network_address));
+  network_address.sin_family       = AF_INET;
+  network_address.sin_port         = htons(SERVER_PORT);
+  network_address.sin_addr         = network;
+  
+  return sendto(sockfd, buffer, buffer_len, 0, (struct sockaddr*) &network_address, sizeof(network_address));
 }
