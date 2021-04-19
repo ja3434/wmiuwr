@@ -16,17 +16,6 @@ struct network_addr {
 
 typedef struct network_addr router_addr;
 
-/* Item of the distance vector. 
- * If <<reachable>> is set to 0, then it means that the network is reachable.
- * If <<reachable>> has positive value, then it indicates that the network was
- * unreachable for <<reachable>> turns.
- */
-struct vector_item {
-  struct network_addr network;
-  struct in_addr      via_ip;
-  uint8_t             reachable;
-};
-
 /* Returns broadcast address of a given network. */
 struct in_addr get_broadcast_address(struct network_addr na);
 
