@@ -5,12 +5,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define INFINITY_DIST 128
-
-/* Network address and sitance */
+/* Network address with netmask. */
 struct network_addr {
   struct in_addr  addr;
-  uint16_t        distance;
   uint8_t         netmask;
 };
 
@@ -23,10 +20,9 @@ struct in_addr get_broadcast_address(struct network_addr na);
 struct in_addr get_network_address(struct network_addr na);
 
 /* Prints network_addr via stdio. */
-void pretty_print(struct network_addr na);
+void pretty_print_network(struct network_addr na);
 
 /* Converts string of ip in CIDR notation with a netmask to network_addr. */
-struct network_addr stora(char *str);
-
+struct network_addr stona(char *str);
 
 #endif

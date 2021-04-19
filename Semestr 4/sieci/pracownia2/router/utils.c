@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 int get_socket() {
   int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -37,7 +38,7 @@ long get_time_interval(struct timespec start, struct timespec finish) {
 
 int poll_socket_modify_timeout(int sockfd, int *timeout) {
   if (*timeout < 0) {
-    fprintf(stderr, "poll_modify_timeout: timeout is negative.\n");
+    fprintf(stderr, "poll_socket_modify_timeout: timeout is negative.\n");
     exit(EXIT_FAILURE);
   }
 
@@ -62,34 +63,8 @@ int poll_socket_modify_timeout(int sockfd, int *timeout) {
 
   clock_gettime(CLOCK_REALTIME, &finish);
   *timeout -= get_time_interval(start, finish);
-  printf("Timeout: %dms, time waiting: %ldms.\n", *timeout, get_time_interval(start, finish));
   return result;
 }   
-
-void recv_and_print(int sockfd, int networks_number, struct network_addr *networks) {
-  struct sockaddr_in  sender;
-  socklen_t           sender_len = sizeof(sender);
-  uint8_t             buffer[IP_MAXPACKET + 1];
-  ssize_t datagram_len = recvfrom(sockfd, buffer, IP_MAXPACKET, 0,
-    (struct sockaddr*)&sender, &sender_len);
-  if (datagram_len < 0) {
-    fprintf(stderr, "recvfrom error: %s\n", strerror(errno));
-    exit(EXIT_FAILURE);
-  }
-  for (int i = 0; i < networks_number; i++) {
-    if (networks[i].addr.s_addr == sender.sin_addr.s_addr) {
-      return;
-    }
-  }
- 
-  char sender_ip_str[20];
-  inet_ntop(AF_INET, &(sender.sin_addr), sender_ip_str, sizeof(sender_ip_str));
-  printf("Received UDP packet from IP address: %s, port %d\n", 
-    sender_ip_str, ntohs(sender.sin_port));
-
-  buffer[datagram_len] = 0;
-  printf("%ld-byte message: +%s+\n", datagram_len, buffer);
-}
 
 size_t send_message(int sockfd, char *buffer, int buffer_len, struct in_addr network) {
   struct sockaddr_in network_address;
@@ -99,4 +74,107 @@ size_t send_message(int sockfd, char *buffer, int buffer_len, struct in_addr net
   network_address.sin_addr         = network;
   
   return sendto(sockfd, buffer, buffer_len, 0, (struct sockaddr*) &network_address, sizeof(network_address));
+}
+
+size_t recv_message(int sockfd, char *buffer, struct sockaddr_in *sender) {
+  socklen_t sender_len = sizeof(*sender);
+  for (int i = 0; i < DV_DATAGRAM_LEN; i++) buffer[i] = 0;
+  size_t datagram_len = recvfrom(sockfd, buffer, IP_MAXPACKET, 0,
+    (struct sockaddr*)sender, &sender_len);
+  if (datagram_len < 0) {
+    fprintf(stderr, "recvfrom error: %s\n", strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+  // printf("Received a message: ");
+  // for (int i = 0 ; i < 9; i++) {
+  //   printf("%u ", (uint8_t)buffer[i]);
+  // }
+  // printf("\n");
+  return datagram_len;
+}
+
+struct vector_item parse_message(char *buffer, struct sockaddr_in *sender) {
+  // printf("Parsing a message: ");
+  // for (int i = 0 ; i < 9; i++) {
+  //   printf("%u ", (uint8_t)buffer[i]);
+  // }
+  // printf("\n");
+  struct vector_item res;
+  uint32_t ip_addr  = *(uint32_t *)buffer;
+  // ip_addr           = ip_addr;
+  uint32_t dist     = *(uint32_t *)(buffer + 5);
+  dist              = ntohl(dist);
+
+  res.network.addr.s_addr   = ip_addr;
+  res.network.netmask       = buffer[4];
+  res.is_connected_directly = true;
+  res.via_ip                = sender->sin_addr;
+  res.distance              = (dist < INFINITY_DIST ? dist : INFINITY_DIST);
+  res.reachable             = 0;
+
+  char addr[20];
+  inet_ntop(AF_INET, &res.network.addr, addr, sizeof(addr));
+  char via[20];
+  inet_ntop(AF_INET, &sender->sin_addr, via, sizeof(via));
+  
+  // printf("Po ludzku: %s/%d, distance %d, via %s\n", addr,  res.network.netmask, res.distance, via);
+
+  return res;
+}
+
+void _get_message(struct vector_item item, char *message) {
+  *(uint32_t *)message  = item.network.addr.s_addr;
+  message[4]            = item.network.netmask;
+  uint32_t distance     = htonl(item.distance >= INFINITY_DIST ? INT_MAX : item.distance);
+  for (int i = 0; i < 4; i++) {
+    *(message + 5 + i) = *((char *)(&distance) + i); 
+  }
+}
+
+int _send_item(int sockfd, struct network_addr network, struct vector_item item) {
+  char message[DV_DATAGRAM_LEN + 1];
+  _get_message(item, message);
+  message[DV_DATAGRAM_LEN] = 0;
+  ssize_t message_len = DV_DATAGRAM_LEN;
+
+  struct in_addr na = get_broadcast_address(network);
+  
+  char addr[20];
+  inet_ntop(AF_INET, &na, addr, sizeof(addr));
+  // printf("Sending datagram to %s: ", addr);
+  // for (int i = 0 ; i < DV_DATAGRAM_LEN; i++) {
+  //   printf("%u ", (uint8_t)message[i]);
+  // }
+  // printf("\nmessage_len: %ld\n", message_len);
+  int result;
+  if ((result = send_message(sockfd, message, message_len, na)) != message_len) {
+    // fprintf(stderr, "sendto error: %s\n", strerror(errno));
+  }
+  return result;
+}
+
+void propagate_distance_vector(int sockfd, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv) {
+  for (int i = 0; i < networks_number; i++) {
+    reset(dv);
+    while (dv->it != NULL) {
+      struct vector_item data = *(struct vector_item *)dv->it->data;
+      if (!(get_network_address(data.network).s_addr == get_network_address(networks[i]).s_addr)) {
+        _send_item(sockfd, networks[i], data);
+      }
+      iterate(dv);
+    }
+
+    struct vector_item self_item;
+    self_item.distance = dists[i];
+    self_item.network = networks[i];    
+    // printf("Sending self message: %d\n", dists[i]);
+    _send_item(sockfd, networks[i], self_item);
+  }
+}
+
+bool is_from_network(struct in_addr ip_addr, struct network_addr network) {
+  struct network_addr temp;
+  temp.addr= ip_addr;
+  temp.netmask = network.netmask;
+  return (get_network_address(temp).s_addr == get_network_address(network).s_addr);
 }

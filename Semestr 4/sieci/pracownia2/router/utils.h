@@ -7,6 +7,7 @@
 #include <time.h>
 #include <poll.h>
 #include "network_addr.h"
+#include "dist_vector.h"
 
 #define NS_TO_MS(X) ((long)(X) / (long)1000000)
 #define S_TO_MS(X) ((long)(X) * (long)1000)
@@ -32,5 +33,17 @@ void recv_and_print(int sockfd, int networks_number, struct network_addr *networ
  */  
 size_t send_message(int sockfd, char *buffer, int buffer_len, struct in_addr addr);
 
+/* Receive message and write it to buffer. */
+size_t recv_message(int sockfd, char *buffer, struct sockaddr_in *sender);
+
+/* Parse datagram into a vector item. */
+struct vector_item parse_message(char *buffer, struct sockaddr_in *sender);
+
+/* Propagates dv to all connected networks. */
+void propagate_distance_vector(int sockfd, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv);
+
+/* Checks if given address is in network range. */
+bool is_from_network(struct in_addr ip_addr, struct network_addr network);
+ 
 
 #endif

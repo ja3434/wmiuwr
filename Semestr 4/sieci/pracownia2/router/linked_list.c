@@ -8,10 +8,7 @@ node_t *_next(node_t *node) {
 
 void _insert(node_t **head, void *data, size_t data_size) {
   node_t *new_node = (node_t *)malloc(sizeof(node_t));
-  new_node->data = malloc(data_size);
-  for (int i = 0; i < data_size; i++)
-    *(uint8_t *)(new_node->data + i) = *(uint8_t *)(data + i);
-  
+  new_node->data = malloc(data_size);  
   new_node->next = *head;
   *head = new_node;
 }

@@ -3,6 +3,12 @@
 
 #define SERVER_PORT 54321
 #define TURN_LEN_S 5
+
+#define INFINITY_DIST 16
+#define REACHABILITY_WAIT_TIME 5
+
+#define DV_DATAGRAM_LEN 9
+
 #define TURN_LEN_MS (1000 * TURN_LEN_S)
 #define TURN_LEN_US (1000000 * TURN_LEN_S)
 

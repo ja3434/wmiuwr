@@ -15,7 +15,7 @@ typedef struct list_t {
   node_t *prev_it;
 } list_t;
 
-/* Creates an empty list */
+/* Creates an empty list. */
 list_t create_list();
 
 /* Insert a new node in the begining of a list. */
