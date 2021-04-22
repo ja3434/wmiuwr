@@ -39,6 +39,9 @@ size_t recv_message(int sockfd, char *buffer, struct sockaddr_in *sender);
 /* Parse datagram into a vector item. */
 struct vector_item parse_message(char *buffer, struct sockaddr_in *sender);
 
+/* Listnes for routers for timeout ms. */
+void listen_for_routers(int sockfd, int timeout, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv);
+
 /* Propagates dv to all connected networks. */
 void propagate_distance_vector(int sockfd, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv);
 

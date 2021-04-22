@@ -16,7 +16,7 @@ typedef struct network_addr router_addr;
 /* Returns broadcast address of a given network. */
 struct in_addr get_broadcast_address(struct network_addr na);
 
-/* Returns network address of a given network */
+/* Returns network address of a given network. */
 struct in_addr get_network_address(struct network_addr na);
 
 /* Prints network_addr via stdio. */

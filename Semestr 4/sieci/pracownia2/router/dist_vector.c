@@ -1,5 +1,7 @@
 #include "dist_vector.h"
 #include <stdio.h>
+#include <time.h>
+#include <string.h>
 
 bool is_connected_directly(struct vector_item item) {
   return item.is_connected_directly;
@@ -60,10 +62,8 @@ void update_dv_new_item(list_t *distance_vector, struct vector_item new_item) {
             current->distance = INFINITY_DIST;
             current->reachable = 0;
           }
-        } else if (new_item.distance < INFINITY_DIST) {
-          if (current->distance >= INFINITY_DIST) {
-            current->distance = new_item.distance;
-          }
+        } else {
+          current->distance = new_item.distance;
           current->reachable = 0;
         }
       }
@@ -73,13 +73,21 @@ void update_dv_new_item(list_t *distance_vector, struct vector_item new_item) {
     iterate(distance_vector);
   }
 
-  if (new_entry) {
+  if (new_entry && new_item.reachable < INFINITY_DIST) {
     insert(distance_vector, &new_item, sizeof(new_item));
   }
 }
 
 void print_dv(list_t *distance_vector) {
-  printf("Distance vector:\n");
+  time_t rawtime;
+  struct tm * timeinfo;
+
+  time ( &rawtime );
+  timeinfo = localtime ( &rawtime );
+  char t[100];
+  strcpy(t, asctime(timeinfo));
+  t[strlen(t) - 1] = 0;
+  printf("Distance vector [%s]:\n", t);
   reset(distance_vector);
   while (distance_vector->it != NULL) {
     char addr[20], via_addr[20];

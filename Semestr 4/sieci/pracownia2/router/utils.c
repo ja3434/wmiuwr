@@ -38,8 +38,8 @@ long get_time_interval(struct timespec start, struct timespec finish) {
 
 int poll_socket_modify_timeout(int sockfd, int *timeout) {
   if (*timeout < 0) {
-    fprintf(stderr, "poll_socket_modify_timeout: timeout is negative.\n");
-    exit(EXIT_FAILURE);
+    *timeout = 0;
+    return 0;
   }
 
   struct pollfd fds;
@@ -49,9 +49,11 @@ int poll_socket_modify_timeout(int sockfd, int *timeout) {
   fds.fd = sockfd;
   fds.events = POLLIN;
   fds.revents = 0;
-  clock_gettime(CLOCK_REALTIME, &start);
   
+  clock_gettime(CLOCK_REALTIME, &start);
   int result = poll(&fds, 1, *timeout);
+  clock_gettime(CLOCK_REALTIME, &finish);
+  
   if (result == -1) {
     fprintf(stderr, "poll error: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
@@ -61,7 +63,6 @@ int poll_socket_modify_timeout(int sockfd, int *timeout) {
     return 0;
   }
 
-  clock_gettime(CLOCK_REALTIME, &finish);
   *timeout -= get_time_interval(start, finish);
   return result;
 }   
@@ -153,12 +154,40 @@ int _send_item(int sockfd, struct network_addr network, struct vector_item item)
   return result;
 }
 
+void listen_for_routers(int sockfd, int timeout, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv) {
+  // printf("Listening for %dms.\n", timeout);
+  char buffer[IP_MAXPACKET + 1];
+  struct sockaddr_in sender;
+
+  while (poll_socket_modify_timeout(sockfd, &timeout)) {
+    size_t buf_len = recv_message(sockfd, buffer, &sender);
+    struct vector_item new_item = parse_message(buffer, &sender);
+    // char addr[20];
+    // inet_ntop(AF_INET, &sender.sin_addr, addr, sizeof(addr));
+    // printf("Via ip: %s\n", addr);
+
+    if (!is_from_network(sender.sin_addr, new_item.network)) {
+      for (int i = 0; i < networks_number; i++) {
+          if (is_from_network(sender.sin_addr, networks[i])) {
+          new_item.distance += dists[i];
+          break;
+        }
+      }
+      new_item.is_connected_directly = false;
+    } 
+
+    update_dv_new_item(dv, new_item);
+  }
+  update_dv_reachability(dv);
+  // printf("Finished listening\n\n");
+}
+
 void propagate_distance_vector(int sockfd, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv) {
   for (int i = 0; i < networks_number; i++) {
     reset(dv);
     while (dv->it != NULL) {
       struct vector_item data = *(struct vector_item *)dv->it->data;
-      if (!(get_network_address(data.network).s_addr == get_network_address(networks[i]).s_addr)) {
+      if (!(get_network_address(data.network).s_addr == get_network_address(networks[i]).s_addr) && data.reachable <= REACHABILITY_WAIT_TIME) {
         _send_item(sockfd, networks[i], data);
       }
       iterate(dv);
