@@ -1,3 +1,8 @@
+/*
+ *  Program:  router
+ *  Autor:    Franciszek Malinka, 316093
+ */
+
 #include "network_addr.h"
 #include <stdio.h>
 #include <string.h>
@@ -52,7 +57,7 @@ struct network_addr stona(char *str) {
   char                addr[20];
   size_t              ip_preffix = strcspn(str, "/");
   
-  strncpy(addr, str, strlen(str));
+  strncpy(addr, str, ip_preffix);
   addr[ip_preffix] = 0;
   inet_pton(AF_INET, addr, &(result.addr));
   result.netmask = atoi(str + ip_preffix + 1);

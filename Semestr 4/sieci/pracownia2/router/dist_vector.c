@@ -1,3 +1,8 @@
+/*
+ *  Program:  router
+ *  Autor:    Franciszek Malinka, 316093
+ */
+
 #include "dist_vector.h"
 #include <stdio.h>
 #include <time.h>

@@ -1,3 +1,8 @@
+/*
+ *  Program:  router
+ *  Autor:    Franciszek Malinka, 316093
+ */
+
 #include <stdio.h>
 #include <errno.h>
 #include <strings.h>

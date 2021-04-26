@@ -1,3 +1,8 @@
+/*
+ *  Program:  router
+ *  Autor:    Franciszek Malinka, 316093
+ */
+
 #include "utils.h"
 #include <arpa/inet.h>
 #include <netinet/ip.h>
@@ -86,23 +91,13 @@ size_t recv_message(int sockfd, char *buffer, struct sockaddr_in *sender) {
     fprintf(stderr, "recvfrom error: %s\n", strerror(errno));
     exit(EXIT_FAILURE);
   }
-  // printf("Received a message: ");
-  // for (int i = 0 ; i < 9; i++) {
-  //   printf("%u ", (uint8_t)buffer[i]);
-  // }
-  // printf("\n");
+  
   return datagram_len;
 }
 
 struct vector_item parse_message(char *buffer, struct sockaddr_in *sender) {
-  // printf("Parsing a message: ");
-  // for (int i = 0 ; i < 9; i++) {
-  //   printf("%u ", (uint8_t)buffer[i]);
-  // }
-  // printf("\n");
   struct vector_item res;
   uint32_t ip_addr  = *(uint32_t *)buffer;
-  // ip_addr           = ip_addr;
   uint32_t dist     = *(uint32_t *)(buffer + 5);
   dist              = ntohl(dist);
 
@@ -117,9 +112,6 @@ struct vector_item parse_message(char *buffer, struct sockaddr_in *sender) {
   inet_ntop(AF_INET, &res.network.addr, addr, sizeof(addr));
   char via[20];
   inet_ntop(AF_INET, &sender->sin_addr, via, sizeof(via));
-  
-  // printf("Po ludzku: %s/%d, distance %d, via %s\n", addr,  res.network.netmask, res.distance, via);
-
   return res;
 }
 
@@ -142,11 +134,7 @@ int _send_item(int sockfd, struct network_addr network, struct vector_item item)
   
   char addr[20];
   inet_ntop(AF_INET, &na, addr, sizeof(addr));
-  // printf("Sending datagram to %s: ", addr);
-  // for (int i = 0 ; i < DV_DATAGRAM_LEN; i++) {
-  //   printf("%u ", (uint8_t)message[i]);
-  // }
-  // printf("\nmessage_len: %ld\n", message_len);
+
   int result;
   if ((result = send_message(sockfd, message, message_len, na)) != message_len) {
     // fprintf(stderr, "sendto error: %s\n", strerror(errno));
@@ -155,12 +143,11 @@ int _send_item(int sockfd, struct network_addr network, struct vector_item item)
 }
 
 void listen_for_routers(int sockfd, int timeout, int networks_number, struct network_addr *networks, uint16_t *dists, list_t *dv) {
-  // printf("Listening for %dms.\n", timeout);
   char buffer[IP_MAXPACKET + 1];
   struct sockaddr_in sender;
 
   while (poll_socket_modify_timeout(sockfd, &timeout)) {
-    size_t buf_len = recv_message(sockfd, buffer, &sender);
+    recv_message(sockfd, buffer, &sender);
     struct vector_item new_item = parse_message(buffer, &sender);
 
     bool is_neighbour = false;
@@ -209,7 +196,6 @@ void propagate_distance_vector(int sockfd, int networks_number, struct network_a
     struct vector_item self_item;
     self_item.distance = dists[i];
     self_item.network = networks[i];    
-    // printf("Sending self message: %d\n", dists[i]);
     _send_item(sockfd, networks[i], self_item);
   }
 }

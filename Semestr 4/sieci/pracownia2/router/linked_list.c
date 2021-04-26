@@ -1,3 +1,8 @@
+/*
+ *  Program:  router
+ *  Autor:    Franciszek Malinka, 316093
+ */
+
 #include "linked_list.h"
 #include <stdlib.h>
 #include <stdint.h>
