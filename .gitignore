@@ -17,3 +17,7 @@ Semestr 4/sieci/vol/
 *.o
 *hpscan*
 *.gdb*
+*.d
+
+# semestr-5
+libcsapp
