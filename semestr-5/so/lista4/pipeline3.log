@@ -1,0 +1,249 @@
+103647 execve("/usr/bin/dash", ["dash"], 0x7ffcdfc7bbd8 /* 40 vars */) = 0
+103647 brk(NULL)                        = 0x55dfe7c3c000
+103647 arch_prctl(0x3001 /* ARCH_??? */, 0x7ffd24410fd0) = -1 EINVAL (Invalid argument)
+103647 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+103647 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+103647 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=92088, ...}, AT_EMPTY_PATH) = 0
+103647 mmap(NULL, 92088, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f42c0819000
+103647 close(3)                         = 0
+103647 openat(AT_FDCWD, "/usr/lib/libedit.so.0", O_RDONLY|O_CLOEXEC) = 3
+103647 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \220\0\0\0\0\0\0"..., 832) = 832
+103647 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=223144, ...}, AT_EMPTY_PATH) = 0
+103647 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f42c0817000
+103647 mmap(NULL, 240792, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f42c07dc000
+103647 mprotect(0x7f42c07e5000, 180224, PROT_NONE) = 0
+103647 mmap(0x7f42c07e5000, 118784, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9000) = 0x7f42c07e5000
+103647 mmap(0x7f42c0802000, 57344, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f42c0802000
+103647 mmap(0x7f42c0811000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x34000) = 0x7f42c0811000
+103647 mmap(0x7f42c0814000, 11416, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f42c0814000
+103647 close(3)                         = 0
+103647 openat(AT_FDCWD, "/usr/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+103647 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0`|\2\0\0\0\0\0"..., 832) = 832
+103647 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+103647 pread64(3, "\4\0\0\0@\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 80, 848) = 80
+103647 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0K@g7\5w\10\300\344\306B4Zp<G"..., 68, 928) = 68
+103647 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2150424, ...}, AT_EMPTY_PATH) = 0
+103647 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+103647 mmap(NULL, 1880536, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f42c0610000
+103647 mmap(0x7f42c0636000, 1355776, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f42c0636000
+103647 mmap(0x7f42c0781000, 311296, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x171000) = 0x7f42c0781000
+103647 mmap(0x7f42c07cd000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bc000) = 0x7f42c07cd000
+103647 mmap(0x7f42c07d3000, 33240, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f42c07d3000
+103647 close(3)                         = 0
+103647 openat(AT_FDCWD, "/usr/lib/libncursesw.so.6", O_RDONLY|O_CLOEXEC) = 3
+103647 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 p\1\0\0\0\0\0"..., 832) = 832
+103647 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=453688, ...}, AT_EMPTY_PATH) = 0
+103647 mmap(NULL, 457976, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f42c05a0000
+103647 mmap(0x7f42c05b7000, 241664, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x17000) = 0x7f42c05b7000
+103647 mmap(0x7f42c05f2000, 98304, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x52000) = 0x7f42c05f2000
+103647 mmap(0x7f42c060a000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x69000) = 0x7f42c060a000
+103647 close(3)                         = 0
+103647 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f42c059d000
+103647 arch_prctl(ARCH_SET_FS, 0x7f42c059d740) = 0
+103647 mprotect(0x7f42c07cd000, 12288, PROT_READ) = 0
+103647 mprotect(0x7f42c060a000, 20480, PROT_READ) = 0
+103647 mprotect(0x7f42c0811000, 8192, PROT_READ) = 0
+103647 mprotect(0x55dfe75e9000, 8192, PROT_READ) = 0
+103647 mprotect(0x7f42c085e000, 8192, PROT_READ) = 0
+103647 munmap(0x7f42c0819000, 92088)    = 0
+103647 getpid()                         = 103647
+103647 rt_sigaction(SIGCHLD, {sa_handler=0x55dfe75ded40, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 geteuid()                        = 1000
+103647 brk(NULL)                        = 0x55dfe7c3c000
+103647 brk(0x55dfe7c5d000)              = 0x55dfe7c5d000
+103647 getppid()                        = 103644
+103647 newfstatat(AT_FDCWD, "/home/framal", {st_mode=S_IFDIR|0700, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0700, st_size=4096, ...}, 0) = 0
+103647 ioctl(0, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+103647 ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+103647 rt_sigaction(SIGINT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGINT, {sa_handler=0x55dfe75ded40, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 rt_sigaction(SIGQUIT, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGQUIT, {sa_handler=SIG_IGN, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 rt_sigaction(SIGTERM, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGTERM, {sa_handler=SIG_IGN, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 openat(AT_FDCWD, "/dev/tty", O_RDWR) = 3
+103647 fcntl(3, F_DUPFD, 10)            = 10
+103647 close(3)                         = 0
+103647 fcntl(10, F_SETFD, FD_CLOEXEC)   = 0
+103647 ioctl(10, TIOCGPGRP, [103644])   = 0
+103647 getpgrp()                        = 103644
+103647 rt_sigaction(SIGTSTP, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 rt_sigaction(SIGTTOU, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGTTOU, {sa_handler=SIG_IGN, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 rt_sigaction(SIGTTIN, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+103647 rt_sigaction(SIGTTIN, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103647 setpgid(0, 103647)               = 0
+103647 ioctl(10, TIOCSPGRP, [103647])   = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/framal", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/frama", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fram", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fra", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fr", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/f", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mai", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/ma", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 write(2, "$ ", 2)                = 2
+103647 read(0, "false | true\n", 8192)  = 13
+103647 pipe([3, 4])                     = 0
+103647 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f42c059da10) = 103651
+103651 getpid( <unfinished ...>
+103647 setpgid(103651, 103651 <unfinished ...>
+103651 <... getpid resumed>)            = 103651
+103647 <... setpgid resumed>)           = 0
+103647 close(4)                         = 0
+103651 setpgid(0, 103651 <unfinished ...>
+103647 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
+103651 <... setpgid resumed>)           = 0
+103651 ioctl(10, TIOCSPGRP, [103651])   = 0
+103651 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103647 <... clone resumed>, child_tidptr=0x7f42c059da10) = 103652
+103651 <... rt_sigaction resumed>NULL, 8) = 0
+103647 setpgid(103652, 103651 <unfinished ...>
+103651 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103647 <... setpgid resumed>)           = 0
+103651 <... rt_sigaction resumed>NULL, 8) = 0
+103647 close(3 <unfinished ...>
+103651 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103647 <... close resumed>)             = 0
+103651 <... rt_sigaction resumed>NULL, 8) = 0
+103647 close(-1 <unfinished ...>
+103652 setpgid(0, 103651 <unfinished ...>
+103651 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103647 <... close resumed>)             = -1 EBADF (Bad file descriptor)
+103652 <... setpgid resumed>)           = 0
+103651 <... rt_sigaction resumed>NULL, 8) = 0
+103647 wait4(-1,  <unfinished ...>
+103652 ioctl(10, TIOCSPGRP, [103651] <unfinished ...>
+103651 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103652 <... ioctl resumed>)             = 0
+103651 <... rt_sigaction resumed>NULL, 8) = 0
+103652 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103651 close(3 <unfinished ...>
+103652 <... rt_sigaction resumed>NULL, 8) = 0
+103651 <... close resumed>)             = 0
+103652 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103651 dup2(4, 1 <unfinished ...>
+103652 <... rt_sigaction resumed>NULL, 8) = 0
+103651 <... dup2 resumed>)              = 1
+103652 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103651 close(4 <unfinished ...>
+103652 <... rt_sigaction resumed>NULL, 8) = 0
+103651 <... close resumed>)             = 0
+103652 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0}, NULL, 8) = 0
+103652 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103651 exit_group(1 <unfinished ...>
+103652 <... rt_sigaction resumed>NULL, 8) = 0
+103651 <... exit_group resumed>)        = ?
+103652 dup2(3, 0)                       = 0
+103652 close(3)                         = 0
+103651 +++ exited with 1 +++
+103647 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 1}], WSTOPPED, NULL) = 103651
+103652 exit_group(0 <unfinished ...>
+103647 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=103651, si_uid=1000, si_status=1, si_utime=0, si_stime=0} ---
+103652 <... exit_group resumed>)        = ?
+103647 rt_sigreturn({mask=[]})          = 103651
+103647 wait4(-1,  <unfinished ...>
+103652 +++ exited with 0 +++
+103647 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED, NULL) = 103652
+103647 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=103652, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+103647 rt_sigreturn({mask=[]})          = 103652
+103647 wait4(-1, 0x7ffd24410d7c, WNOHANG|WSTOPPED, NULL) = -1 ECHILD (No child processes)
+103647 ioctl(10, TIOCSPGRP, [103647])   = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/framal", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/frama", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fram", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fra", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fr", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/f", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mai", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/ma", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 write(2, "$ ", 2)                = 2
+103647 read(0, "true | false\n", 8192)  = 13
+103647 pipe([3, 4])                     = 0
+103647 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f42c059da10) = 103681
+103647 setpgid(103681, 103681 <unfinished ...>
+103681 getpid( <unfinished ...>
+103647 <... setpgid resumed>)           = 0
+103647 close(4 <unfinished ...>
+103681 <... getpid resumed>)            = 103681
+103647 <... close resumed>)             = 0
+103681 setpgid(0, 103681 <unfinished ...>
+103647 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD <unfinished ...>
+103681 <... setpgid resumed>)           = 0
+103681 ioctl(10, TIOCSPGRP, [103681])   = 0
+103647 <... clone resumed>, child_tidptr=0x7f42c059da10) = 103682
+103647 setpgid(103682, 103681)          = 0
+103681 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103682 setpgid(0, 103681 <unfinished ...>
+103647 close(3)                         = 0
+103647 close(-1 <unfinished ...>
+103681 <... rt_sigaction resumed>NULL, 8) = 0
+103647 <... close resumed>)             = -1 EBADF (Bad file descriptor)
+103682 <... setpgid resumed>)           = 0
+103681 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103647 wait4(-1,  <unfinished ...>
+103681 <... rt_sigaction resumed>NULL, 8) = 0
+103681 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103682 ioctl(10, TIOCSPGRP, [103681] <unfinished ...>
+103681 <... rt_sigaction resumed>NULL, 8) = 0
+103682 <... ioctl resumed>)             = 0
+103681 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103682 rt_sigaction(SIGTSTP, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103681 <... rt_sigaction resumed>NULL, 8) = 0
+103682 <... rt_sigaction resumed>NULL, 8) = 0
+103681 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103682 rt_sigaction(SIGTTOU, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103681 <... rt_sigaction resumed>NULL, 8) = 0
+103682 <... rt_sigaction resumed>NULL, 8) = 0
+103682 rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103681 close(3 <unfinished ...>
+103682 <... rt_sigaction resumed>NULL, 8) = 0
+103681 <... close resumed>)             = 0
+103682 rt_sigaction(SIGQUIT, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103681 dup2(4, 1 <unfinished ...>
+103682 <... rt_sigaction resumed>NULL, 8) = 0
+103681 <... dup2 resumed>)              = 1
+103682 rt_sigaction(SIGTERM, {sa_handler=SIG_DFL, sa_mask=~[RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0x7f42c064cda0},  <unfinished ...>
+103681 close(4 <unfinished ...>
+103682 <... rt_sigaction resumed>NULL, 8) = 0
+103681 <... close resumed>)             = 0
+103682 dup2(3, 0)                       = 0
+103682 close(3 <unfinished ...>
+103681 exit_group(0 <unfinished ...>
+103682 <... close resumed>)             = 0
+103681 <... exit_group resumed>)        = ?
+103682 exit_group(1)                    = ?
+103681 +++ exited with 0 +++
+103647 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WSTOPPED, NULL) = 103681
+103647 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=103681, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+103647 rt_sigreturn({mask=[]} <unfinished ...>
+103682 +++ exited with 1 +++
+103647 <... rt_sigreturn resumed>)      = 103681
+103647 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=103682, si_uid=1000, si_status=1, si_utime=0, si_stime=0} ---
+103647 rt_sigreturn({mask=[]})          = 103681
+103647 wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 1}], WSTOPPED, NULL) = 103682
+103647 wait4(-1, 0x7ffd24410d7c, WNOHANG|WSTOPPED, NULL) = -1 ECHILD (No child processes)
+103647 ioctl(10, TIOCSPGRP, [103647])   = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/framal", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/frama", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fram", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fra", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/fr", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/f", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/mail/", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mail", {st_mode=S_IFDIR|S_ISVTX|0777, st_size=4096, ...}, 0) = 0
+103647 newfstatat(AT_FDCWD, "/var/spool/mai", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 newfstatat(AT_FDCWD, "/var/spool/ma", 0x7ffd24410eb0, 0) = -1 ENOENT (No such file or directory)
+103647 write(2, "$ ", 2)                = 2
+103647 read(0, "exit 42\n", 8192)       = 8
+103647 ioctl(10, TIOCSPGRP, [103644])   = 0
+103647 setpgid(0, 103644)               = 0
+103647 close(10)                        = 0
+103647 exit_group(42)                   = ?
+103647 +++ exited with 42 +++

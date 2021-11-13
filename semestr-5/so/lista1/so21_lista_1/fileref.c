@@ -32,7 +32,16 @@ static void do_read(int fd) {
 static void do_close(int fd) {
   /* TODO: In the child close file descriptor, in the parent wait for child to
    * die and check if the file descriptor is still accessible. */
-
+  int pid = fork();
+  if (pid > 0) {
+     printf("[%d] %d\n", getpid(), fcntl(fd, F_GETFD));
+     close(fd);
+     printf("[%d] %d\n", getpid(), fcntl(fd, F_GETFD));
+  }
+  else {
+    wait(NULL);
+    printf("[%d] %d\n", getpid(), fcntl(fd, F_GETFD));
+  }
   exit(0);
 }
 
