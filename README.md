@@ -28,3 +28,9 @@ Materiały z przedmiotów realizowanych przeze mnie podczas moich studiów na Un
 * Sieci komputerowe, II
 * Równania różniczkowe 1R, IM
 * Rachunek prawdopodobieństwa 1R, IM
+
+### Semestr Zimowy 2021/2022
+* Systemy Operacyjne, II
+* Logika R, IM
+* Historia sztuki, IM
+* OWI, II
